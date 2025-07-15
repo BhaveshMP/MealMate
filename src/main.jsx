@@ -5,6 +5,7 @@ import App from './App'
 import React from "react"
 import ReactDOM from "react-dom/client"
 import Register from "./pages/register"
+import Home from "./pages/home"
 import {
   createBrowserRouter,
   RouterProvider,
@@ -17,8 +18,9 @@ const router  = createBrowserRouter([
       path: "/",
       element: <App/>, //layout
       children:[
-        {path:"/", element:<Login/>},
+        {path:"/", element:<Home/>},
         {path:"/login", element:<Login/>},
+        {path:"/register", element:<Register/>},
         {path:"/profile",element:<Profile/>}
       ]
     }
