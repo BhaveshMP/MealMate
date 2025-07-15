@@ -4,6 +4,7 @@ import './index.css'
 import App from './App'
 import React from "react"
 import ReactDOM from "react-dom/client"
+import Register from "./pages/register"
 import {
   createBrowserRouter,
   RouterProvider,
