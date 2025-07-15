@@ -5,9 +5,13 @@ import CarouselComponent from "../components/Carousel"; // Assuming you have a C
 export default function Home() {
   return (
     <>
+          <div className="flex flex-col min-h-screen">
       <NavbarContent />
-      <CarouselComponent />
+      <main className="flex-1">
+        <CarouselComponent />
+      </main>
       <FooterContent />
+    </div>
     </>
   );
 }

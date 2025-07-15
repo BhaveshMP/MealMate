@@ -3,13 +3,13 @@ import { Carousel } from "flowbite-react";
 
 export default function CarouselComponent() {
   return (
-    <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+    <div className=" h-screen">
       <Carousel>
-        <img src="public/" alt="..." />
-        <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..." />
-        <img src="https://flowbite.com/docs/images/carousel/carousel-3.svg" alt="..." />
-        <img src="https://flowbite.com/docs/images/carousel/carousel-4.svg" alt="..." />
-        <img src="https://flowbite.com/docs/images/carousel/carousel-5.svg" alt="..." />
+        <img src="G1.png" alt="..." />
+        <img src="G2.png" alt="..." />
+        <img src="G3.png" alt="..." />
+        <img src="G4.png" alt="..." />
+        <img src="G5.png" alt="..." />
       </Carousel>
     </div>
   );

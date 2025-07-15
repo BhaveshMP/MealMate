@@ -15,13 +15,13 @@ import {
 export default function NavbarContent() {
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      className="bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: "url('/images/canteen-bg.jpg')" }} // Place your image in /public/images/
     >
       <Navbar fluid rounded className="bg-gray-900 bg-opacity-80 text-white">
         <NavbarBrand href="/">
           <img
-            src="/favicon.svg"
+            src="MM.png"
             className="mr-3 h-6 sm:h-9"
             alt="Canteen Logo"
           />
@@ -30,7 +30,21 @@ export default function NavbarContent() {
           </span>
         </NavbarBrand>
 
-        <div className="flex md:order-2">
+
+
+        <NavbarCollapse>
+          <NavbarLink href="/" active>
+            Home
+          </NavbarLink>
+          <NavbarLink href="/about">About</NavbarLink>
+          <NavbarLink href="/menu">Menu</NavbarLink>
+          <NavbarLink href="/pricing">Pricing</NavbarLink>
+          <NavbarLink href="/contact">Contact</NavbarLink>
+
+
+          
+        </NavbarCollapse>
+                <div className="flex md:order-0">
           <Dropdown
             arrowIcon={false}
             inline
@@ -56,16 +70,6 @@ export default function NavbarContent() {
           </Dropdown>
           <NavbarToggle />
         </div>
-
-        <NavbarCollapse>
-          <NavbarLink href="/" active>
-            Home
-          </NavbarLink>
-          <NavbarLink href="/about">About</NavbarLink>
-          <NavbarLink href="/menu">Menu</NavbarLink>
-          <NavbarLink href="/pricing">Pricing</NavbarLink>
-          <NavbarLink href="/contact">Contact</NavbarLink>
-        </NavbarCollapse>
       </Navbar>
     </div>
   );
