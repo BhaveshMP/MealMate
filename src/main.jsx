@@ -9,6 +9,7 @@ import {
   RouterProvider,
 } from "react-router-dom"
 import Login from "./pages/login"
+import Profile from "./pages/profile"
 
 const router  = createBrowserRouter([
     {
@@ -16,7 +17,8 @@ const router  = createBrowserRouter([
       element: <App/>, //layout
       children:[
         {path:"/", element:<Login/>},
-        {path:"/login", elemtn:<Login/>}
+        {path:"/login", element:<Login/>},
+        {path:"/profile",element:<Profile/>}
       ]
     }
 ])
