@@ -1,3 +1,4 @@
+import DarkModeToggle from "./DarkModeToggle";
 "use client";
 import {
   Avatar,
@@ -5,72 +6,58 @@ import {
   DropdownDivider,
   DropdownHeader,
   DropdownItem,
-  Navbar,
-  NavbarBrand,
-  NavbarCollapse,
-  NavbarLink,
-  NavbarToggle,
 } from "flowbite-react";
 
 export default function NavbarContent() {
   return (
-    <div
-      className="bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: "url('/images/canteen-bg.jpg')" }} // Place your image in /public/images/
-    >
-      <Navbar fluid rounded className="bg-gray-900 bg-opacity-80 text-white">
-        <NavbarBrand href="/">
-          <img
-            src="MM.png"
-            className="mr-3 h-6 sm:h-9"
-            alt="Canteen Logo"
-          />
-          <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
-            Office Canteen
-          </span>
-        </NavbarBrand>
+    <header className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md px-6 py-4 flex justify-between items-center">
+      {/* Logo */}
+      <div className="flex items-center gap-3">
+        <img
+          src="/public/MM.png"
+          alt="Canteen Logo"
+          className="h-10 w-auto"
+        />
+      </div>
 
+      {/* Center Nav Links */}
+      <nav className="hidden md:flex gap-10 text-white font-medium text-lg">
+        <a href="/" className="hover:text-gray-300 transition">Home</a>
+        <a href="/menu" className="hover:text-gray-300 transition">Menu</a>
+        <a href="/catering" className="hover:text-gray-300 transition">Catering</a>
+        <a href="/contact" className="hover:text-gray-300 transition">Contact</a>
+      </nav>
+      
+      
 
+      {/* Avatar Dropdown */}
+      <div className="flex items-center">
+        <Dropdown
+          arrowIcon={false}
+          inline
+          label={
+            <Avatar
+              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+              alt="User settings"
+              rounded
+            />
+          }
+        >
+          <DropdownHeader>
+            <span className="block text-sm">Kushagra Padwal</span>
+            <span className="block text-sm font-medium truncate">
+              kushagra@canteen.com
+            </span>
+          </DropdownHeader>
+          <DropdownItem href="/profile">My Profile</DropdownItem>
+          <DropdownItem href="/orders">Orders</DropdownItem>
+          <DropdownItem href="/feedback">Feedback</DropdownItem>
+          <DropdownDivider />
+          <DropdownItem href="/logout">Logout</DropdownItem>
+        </Dropdown>
+      </div>
 
-        <NavbarCollapse>
-          <NavbarLink href="/" active>
-            Home
-          </NavbarLink>
-          <NavbarLink href="/about">About</NavbarLink>
-          <NavbarLink href="/menu">Menu</NavbarLink>
-          <NavbarLink href="/pricing">Pricing</NavbarLink>
-          <NavbarLink href="/contact">Contact</NavbarLink>
-
-
-          
-        </NavbarCollapse>
-                <div className="flex md:order-0">
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={
-              <Avatar
-                alt="User settings"
-                img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                rounded
-              />
-            }
-          >
-            <DropdownHeader>
-              <span className="block text-sm">Kushagra Padwal</span>
-              <span className="block truncate text-sm font-medium">
-                kushagra@canteen.com
-              </span>
-            </DropdownHeader>
-            <DropdownItem href="/profile">My Profile</DropdownItem>
-            <DropdownItem href="/orders">Orders</DropdownItem>
-            <DropdownItem href="/feedback">Feedback</DropdownItem>
-            <DropdownDivider />
-            <DropdownItem href="/logout">Logout</DropdownItem>
-          </Dropdown>
-          <NavbarToggle />
-        </div>
-      </Navbar>
-    </div>
+      
+    </header>
   );
 }

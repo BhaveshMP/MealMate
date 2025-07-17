@@ -12,6 +12,7 @@ import {
 } from "react-router-dom"
 import Login from "./pages/login"
 import Profile from "./pages/profile"
+import HomeHeroSection from "./components/HomeHeroSection"; // Importing the HomeHeroSection component
 
 const router  = createBrowserRouter([
     {
