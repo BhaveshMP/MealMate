@@ -82,9 +82,9 @@ useEffect(() => {
           }
         >
           <DropdownHeader>
-            <span className="block text-sm">Kushagra Padwal</span>
+            <span className="block text-sm">{activeUser.name}</span>
             <span className="block text-sm font-medium truncate">
-              kushagra@canteen.com
+              {activeUser.email}
             </span>
           </DropdownHeader>
           <DropdownItem href="/profile">My Profile</DropdownItem>

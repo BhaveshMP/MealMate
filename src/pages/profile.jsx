@@ -1,13 +1,15 @@
 import { Card } from "flowbite-react"
+import { useEffect, useState } from "react"
 
 function Profile(){
 
-        const user = {
-            name : "Pranav",
-            employeeId: "1",
-            email: "pranav@gmail.com",
-            totalMeals: 28
-        }
+    const [user, setUser] = useState({});
+
+    useEffect( () => {
+      const activeUser = sessionStorage.getItem("activeUser");
+      setUser(JSON.parse(activeUser));
+    }, [])
+
     
     return(
     <Card className="max-w-sm mx-auto mt-40 ">
