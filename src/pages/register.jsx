@@ -20,7 +20,6 @@ export default function Register() {
 
 useEffect(() => {
     const testCRUD = async () => {
-      console.log("/******************************/")
       // 👇 Insert
       const inserted = await insertUser({
         name: "John",
@@ -52,11 +51,10 @@ useEffect(() => {
     // 🔜 Send `user` to Supabase or your backend API
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen ">
       <form
         onSubmit={handleSubmit}
-        className="max-w-md w-full flex flex-col gap-4 p-6 bg-white shadow-md rounded-lg"
-      >
+        className="max-w-md w-full flex flex-col gap-4 p-6  bg-white/10 shadow-xl rounded-lg ">
         {/* Name */}
         <div>
           <Label htmlFor="name" className="mb-2 block">

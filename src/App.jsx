@@ -1,11 +1,11 @@
-
+import NavbarContent from "./components/NavbarContent"; // Adjust the path if needed
 import { Outlet, Link } from "react-router-dom"
 function App() {
 
   return (
     <>
    <div>
-      <hr />
+      <NavbarContent />
       <Outlet /> {/* Renders the matching child route */}
     </div>
     </>
