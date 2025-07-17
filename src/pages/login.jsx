@@ -1,26 +1,30 @@
 import { useState, useEffect } from "react";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { insertUser } from "../components/InsertUser";
+import { getUserByEmailPassword } from "../components/Backend";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-    const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((prevUser) => ({
-      ...prevUser,
-      [name]: value,
-    }));
-  };
-
   
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
     console.log("Email:", email);
     console.log("Password:", password);
 
-
+ try {
+      const user = await getUserByEmailPassword(email, password);
+      if (user) {
+        // ✅ Store user in sessionStorage
+        sessionStorage.setItem("activeUser", JSON.stringify(user));
+        console.log("Login successful");
+        const u1 = sessionStorage.getItem("activeUser")
+        console.log("44444444444444",u1)
+      } else {
+        console.log("Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
     // 🔜 Call your Supabase auth or login API here
   };
 

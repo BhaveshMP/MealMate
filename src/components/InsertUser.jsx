@@ -1,12 +1,11 @@
 import { supabase } from '../lib/supabaseClient'
 
 
-export const insertUser = async () => {
-    console.log("START")
+export const insertUser = async ({name, email, password}) => {
   const { data, error } = await supabase
     .from('users')
     .insert([
-      { name: 'Alice', email: 'alice@example.com' } // your columns
+      { name: name, email: email, password: password } // your columns
     ])
 
   if (error) {
