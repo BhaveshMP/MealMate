@@ -1,6 +1,6 @@
 import { Button, Label, TextInput } from "flowbite-react";
-import { useRef } from "react";
-
+import { useEffect, useRef } from "react";
+import { insertUser, getUsers, updateUser, deleteUser, getUserById  } from "../components/Backend";
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
@@ -8,17 +8,48 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const user = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-
+    insertUser(user);
     console.log("Registered user:", user);
+  }
+
+
+useEffect(() => {
+    const testCRUD = async () => {
+      console.log("/******************************/")
+      // 👇 Insert
+      const inserted = await insertUser({
+        name: "John",
+        email: "john@example.co1111m",
+        password: "123",
+      });
+      console.log("Inserted User:", inserted);
+
+      // 👇 Get All
+      const users = await getUsers();
+      console.log("All Users:", users);
+
+      // 👇 Update
+      const updated = await updateUser(65, { email: "new@example.com" });
+      console.log("Updated User:", updated);
+
+      // 👇 Delete
+      const deleted = await deleteUser(68);
+      console.log("Deleted User:", deleted);
+      
+      const user  = await getUserById(69);
+      console.log(" User:", user);
+
+    };
+
+    // testCRUD();
+  }, []);
 
     // 🔜 Send `user` to Supabase or your backend API
-  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
