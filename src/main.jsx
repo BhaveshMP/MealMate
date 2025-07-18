@@ -13,20 +13,32 @@ import {
 import Login from "./pages/login"
 import Profile from "./pages/profile"
 import HomeHeroSection from "./components/HomeHeroSection"; // Importing the HomeHeroSection component
+import Menu from "./pages/menu"
+import Dashboard from './pages/dashboard'
+import Index from "./components/dashboard/pages/index"
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />, // layout
+    children: [
+      { path: "", element: <Home /> },       // "/" route
+      { path: "login", element: <Login /> }, // "/login"
+      { path: "register", element: <Register /> }, // "/register"
+      { path: "profile", element: <Profile /> },   // "/profile"
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />, // layout
+    children: [
+      { path: "", element: <Index /> },     // "/dashboard/login"
+      { path: "register", element: <Register /> }, // "/dashboard/register"
+      { path: "profile", element: <Profile /> },   // "/dashboard/profile"
+    ],
+  },
+  { path: "/menu", element: <Menu /> }, // outside layout
+]);
 
-const router  = createBrowserRouter([
-    {
-      path: "/",
-      element: <App/>, //layout
-      children:[
-        {path:"/", element:<Home/>},
-        {path:"/login", element:<Login/>},
-        {path:"/register", element:<Register/>},
-        {path:"/profile",element:<Profile/>}
-      ]
-    },
-    { path: "/login", element: <Login /> },
-])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode >

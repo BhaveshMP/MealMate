@@ -1,5 +1,5 @@
 
-import FooterContent from "../components/FooterContent";
+import FooterContent from "../components/common/FooterContent";
 import CarouselComponent from "../components/Carousel"; // Assuming you have a Carousel component
 import HomeHeroSection from "../components/HomeHeroSection"; // Importing the HomeHeroSection component
 

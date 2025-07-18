@@ -1,6 +1,6 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import { useEffect, useRef } from "react";
-import { insertUser, getUsers, updateUser, deleteUser, getUserById  } from "../components/Backend";
+import { insertUser, getUsers, updateUser, deleteUser, getUserById  } from "../components/backend/Backend";
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();

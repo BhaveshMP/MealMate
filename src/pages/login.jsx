@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { getUserByEmailPassword } from "../components/Backend";
+import { getUserByEmailPassword } from "../components/backend/Backend";
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 const Login = () => {
