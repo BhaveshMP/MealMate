@@ -42,13 +42,13 @@ export default function Dashboard(){
     )}
 
     {/* Main Content */}
-<div className="flex-1 bg-yellow-300 md:ml-64">
+<div className="flex-1 md:ml-64">
   <DashboardBreadcrumb/>
-  <h1 className="text-xl font-bold">
-        
-        </h1>
-              <Outlet /> 
       {/* Your main content here */}
+<div className="p-4">
+
+              <Outlet /> 
+</div>
     </div>
   </div>
 </>

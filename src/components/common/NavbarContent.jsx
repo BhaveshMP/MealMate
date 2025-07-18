@@ -43,7 +43,7 @@ useEffect(() => {
     <header className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md px-6 py-3 flex justify-between items-center shadow-lg shadow-gray-600/20">
       {/* Logo */}
       <div className="flex items-center gap-3">
-        <imgs
+        <img
           src="/public/MM.png"
           alt="Canteen Logo"
           className="h-10 w-auto"
@@ -82,9 +82,9 @@ useEffect(() => {
           }
         >
           <DropdownHeader>
-            <span className="block text-sm">Kushagra Padwal</span>
+            <span className="block text-sm">{activeUser.name}</span>
             <span className="block text-sm font-medium truncate">
-              kushagra@canteen.com
+              {activeUser.email}
             </span>
           </DropdownHeader>
           <DropdownItem href="/profile">My Profile</DropdownItem>

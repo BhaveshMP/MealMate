@@ -1,6 +1,6 @@
 import { Button, Label, TextInput } from "flowbite-react";
 import { useEffect, useRef } from "react";
-import { insertUser, getUsers, updateUser, deleteUser, getUserById  } from "../components/backend/Backend";
+import { insertData, getData, updateData, deleteData, getDataById  } from "../components/backend/Backend";
 export default function Register() {
   const nameRef = useRef();
   const emailRef = useRef();
@@ -13,7 +13,7 @@ export default function Register() {
       email: emailRef.current.value,
       password: passwordRef.current.value,
     };
-    insertUser(user);
+    insertData("users", user);
     console.log("Registered user:", user);
   }
 
@@ -21,27 +21,27 @@ export default function Register() {
 useEffect(() => {
     const testCRUD = async () => {
       // 👇 Insert
-      const inserted = await insertUser({
+      const inserted = await insertData({
         name: "John",
         email: "john@example.co1111m",
         password: "123",
       });
-      console.log("Inserted User:", inserted);
+      console.log("Inserted Data:", inserted);
 
       // 👇 Get All
-      const users = await getUsers();
-      console.log("All Users:", users);
+      const users = await getDatas();
+      console.log("All Datas:", users);
 
       // 👇 Update
-      const updated = await updateUser(65, { email: "new@example.com" });
-      console.log("Updated User:", updated);
+      const updated = await updateData(65, { email: "new@example.com" });
+      console.log("Updated Data:", updated);
 
       // 👇 Delete
-      const deleted = await deleteUser(68);
-      console.log("Deleted User:", deleted);
+      const deleted = await deleteData(68);
+      console.log("Deleted Data:", deleted);
       
-      const user  = await getUserById(69);
-      console.log(" User:", user);
+      const user  = await getDataById(69);
+      console.log(" Data:", user);
 
     };
 

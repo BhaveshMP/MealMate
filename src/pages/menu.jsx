@@ -1,16 +1,23 @@
 
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-react";
+import { insertData } from "../components/backend/Backend";
+import ImageUploadForm from "../components/common/ImageUploadForm";
  const Menu = () =>{
+
+  const imageRef = useRef();
     const [item, setItem] = useState( {
         name : "",
         description: "",
-        price: "",
+        price: 0,
         available: true,
         veg: true,
         specialDish: false,
+        imageUrl: "", //
+        imageName: "",
     })
+
 
       const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -20,10 +27,17 @@ import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-r
         }));
     };
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        console.log(item)
+    const handleImageUpload = (url, fileName) => {
+      setItem((prev) => ({ ...prev, imageUrl: url, imageName:fileName }));
+    };
 
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+            if (imageRef.current) {
+            await imageRef.current.handleUpload(); // calls the child's function
+          }
+          insertData("menu", item);
+        console.log(item)
     }
     return(
         <>
@@ -112,6 +126,11 @@ import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-r
           />
           <Label htmlFor="specialDish">Mark as Special Dish</Label>
         </div>
+
+        <div className="flex items-center gap-2">
+           <ImageUploadForm ref={imageRef} folder="avatars" onUpload={handleImageUpload} />
+        </div>
+
 
         {/* Submit */}
         <Button type="submit">Save Item</Button>

@@ -12,27 +12,25 @@ const headers = {
 
 
 // INSERT USER
-export const insertUser = async (user) => {
+export const insertData = async (tableName, data) => {
   try {
-    const response = await axios.post(`${api}/users`,
-      { name:user.name, email: user.email, password: user.password },
-      {
-        headers: headers
-      }
-    );
+    const response = await axios.post(`${api}/rest/v1/${tableName}`, data, {
+      headers: headers,
+    });
 
-    console.log("Inserted:", response.data);
-    return response.data
+    console.log(`Inserted into ${tableName}:`, response.data);
+    return response.data;
   } catch (error) {
-    console.error("Insert failed:", error.response?.data || error.message);
-    return null
+    console.error(`Insert into ${tableName} failed:`, error.response?.data || error.message);
+    return null;
   }
 };
 
+
 // GET USER
-export const getUsers = async () => {
+export const getData = async (tableName) => {
   try {
-    const response = await axios.get(`${api}/users`, {
+    const response = await axios.get(`${api}/rest/v1/${tableName}`, {
       headers: headers,
     });
     return response.data;
@@ -42,50 +40,30 @@ export const getUsers = async () => {
   }
 };
 
-// GET USER BY EMAIL AND PASSWORD
 
-export const getUserByEmailPassword = async (email, password) => {
-  try {
-    const { data } = await axios.get(`${api}/users`, {
-      headers: {
-        ...headers,
-        "Content-Type": "application/json",
-      },
-      params: {
-        email: `eq.${email}`,
-        password: `eq.${password}`,
-        select: "*",
-      },
-    });
-    return data?.[0] || null; // return the user object or null
-  } catch (error) {
-    console.error("Fetch failed:", error.response?.data || error.message);
-    return null;
-  }
-};
 
 //GET USER BY ID
-export const getUserById = async (id) => {
+export const getDataById = async (tableName, id) => {
   try {
     const response = await axios.get(
-      `${api}/users?id=eq.${id}`,
+      `${api}/rest/v1/${tableName}?id=eq.${id}`,
       {
         headers: headers,
       }
     );
     return response.data?.[0] || null;
   } catch (error) {
-    console.error("Fetch user by ID failed:", error.response?.data || error.message);
+    console.error(`Fetch ${tableName} by ID failed:`, error.response?.data || error.message);
     return null;
   }
 };
 
 
 //UPDATE USER
-export const updateUser = async (id, updatedData) => {
+export const updateData = async (tableName, id, updatedData) => {
   try {
     const response = await axios.patch(
-      `${api}/users?id=eq.${id}`,
+      `${api}/rest/v1/${tableName}?id=eq.${id}`,
       updatedData,
       {
         headers: {
@@ -104,9 +82,9 @@ export const updateUser = async (id, updatedData) => {
 
 
 //DELETE USER
-export const deleteUser = async (id) => {
+export const deleteData = async (tableName, id) => {
   try {
-    const response = await axios.delete(`${api}/users?id=eq.${id}`, {
+    const response = await axios.delete(`${api}/rest/v1/${tableName}?id=eq.${id}`, {
       headers: {
         ...headers,
         Prefer: 'return=representation',
@@ -116,6 +94,29 @@ export const deleteUser = async (id) => {
     return response.data;
   } catch (error) {
     console.error("Delete failed:", error.response?.data || error.message);
+    return null;
+  }
+};
+
+
+// GET USER BY EMAIL AND PASSWORD
+
+export const getUserByEmailPassword = async (email, password) => {
+  try {
+    const { data } = await axios.get(`${api}/rest/v1/users`, {
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      params: {
+        email: `eq.${email}`,
+        password: `eq.${password}`,
+        select: "*",
+      },
+    });
+    return data?.[0] || null; // return the user object or null
+  } catch (error) {
+    console.error("Fetch failed:", error.response?.data || error.message);
     return null;
   }
 };

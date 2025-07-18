@@ -6,6 +6,9 @@ import React from "react"
 import ReactDOM from "react-dom/client"
 import Register from "./pages/register"
 import Home from "./pages/home"
+import Demo from "./pages/demo"
+
+import Table from "./components/common/Table"
 import {
   createBrowserRouter,
   RouterProvider,
@@ -32,11 +35,12 @@ const router = createBrowserRouter([
     element: <Dashboard />, // layout
     children: [
       { path: "", element: <Index /> },     // "/dashboard/login"
-      { path: "register", element: <Register /> }, // "/dashboard/register"
+      { path: "table", element: <Table /> }, // "/dashboard/register"
       { path: "profile", element: <Profile /> },   // "/dashboard/profile"
     ],
   },
   { path: "/menu", element: <Menu /> }, // outside layout
+  { path: "/demo", element: <Demo /> }, // outside layout
 ]);
 
 
