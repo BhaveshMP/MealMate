@@ -23,6 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Local environment settings
-.env
-.env.* 
+# # Local environment settings
+# .env
+# .env.* 
