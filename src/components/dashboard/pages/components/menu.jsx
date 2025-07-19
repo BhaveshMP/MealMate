@@ -2,8 +2,8 @@
 "use client";
 import { useState, useRef } from "react";
 import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-react";
-import { insertData } from "../components/backend/Backend";
-import ImageUploadForm from "../components/common/ImageUploadForm";
+import { insertData } from "../../../backend/Backend";
+import ImageUploadForm from "../../../common/ImageUploadForm";
  const Menu = () =>{
 
   const imageRef = useRef();
