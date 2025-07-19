@@ -9,6 +9,7 @@ import Home from "./pages/home"
 import Demo from "./pages/demo"
 
 import Table from "./components/common/Table"
+import MenuList from "./pages/menuitems"
 import {
   createBrowserRouter,
   RouterProvider,
@@ -16,7 +17,7 @@ import {
 import Login from "./pages/login"
 import Profile from "./pages/profile"
 import HomeHeroSection from "./components/HomeHeroSection"; // Importing the HomeHeroSection component
-import Menu from "./pages/menu"
+import Menu from "./components/dashboard/pages/components/menu"
 import Dashboard from './pages/dashboard'
 import Index from "./components/dashboard/pages/index"
 const router = createBrowserRouter([
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> }, // "/login"
       { path: "register", element: <Register /> }, // "/register"
       { path: "profile", element: <Profile /> },   // "/profile"
+      { path: "menu", element: <MenuList /> }, // "/menulist"
     ],
   },
   {
@@ -37,9 +39,10 @@ const router = createBrowserRouter([
       { path: "", element: <Index /> },     // "/dashboard/login"
       { path: "table", element: <Table /> }, // "/dashboard/register"
       { path: "profile", element: <Profile /> },   // "/dashboard/profile"
+      { path: "menu", element: <Menu /> }, // outside layout
     ],
   },
-  { path: "/menu", element: <Menu /> }, // outside layout
+  
   { path: "/demo", element: <Demo /> }, // outside layout
 ]);
 
