@@ -16,6 +16,8 @@ import {
 } from "react-router-dom"
 import Login from "./pages/login"
 import Profile from "./pages/profile"
+import Coupon from "./pages/coupon"
+import Scan from "./pages/scan"
 import HomeHeroSection from "./components/HomeHeroSection"; // Importing the HomeHeroSection component
 import Menu from "./components/dashboard/pages/components/menu"
 import Dashboard from './pages/dashboard'
@@ -40,6 +42,8 @@ const router = createBrowserRouter([
       { path: "table", element: <Table /> }, // "/dashboard/register"
       { path: "profile", element: <Profile /> },   // "/dashboard/profile"
       { path: "menu", element: <Menu /> }, // outside layout
+      {path:"/coupon",element:<Coupon/>},
+      {path:"/scan",element:<Scan/>}
     ],
   },
   
