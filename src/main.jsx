@@ -12,6 +12,8 @@ import {
 } from "react-router-dom"
 import Login from "./pages/login"
 import Profile from "./pages/profile"
+import Coupon from "./pages/coupon"
+import Scan from "./pages/scan"
 import HomeHeroSection from "./components/HomeHeroSection"; // Importing the HomeHeroSection component
 
 const router  = createBrowserRouter([
@@ -22,7 +24,9 @@ const router  = createBrowserRouter([
         {path:"/", element:<Home/>},
         {path:"/login", element:<Login/>},
         {path:"/register", element:<Register/>},
-        {path:"/profile",element:<Profile/>}
+        {path:"/profile",element:<Profile/>},
+        {path:"/coupon",element:<Coupon/>},
+        {path:"/scan",element:<Scan/>}
       ]
     },
     { path: "/login", element: <Login /> },
