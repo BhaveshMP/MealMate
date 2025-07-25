@@ -31,7 +31,9 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> }, // "/login"
       { path: "register", element: <Register /> }, // "/register"
       { path: "profile", element: <Profile /> },   // "/profile"
-      { path: "menu", element: <MenuList /> }, // "/menulist"
+      { path: "menu", element: <MenuList /> },
+      {path:"/coupon",element:<Coupon/>},
+      {path:"/scan",element:<Scan/>} // "/menulist"
     ],
   },
   {
@@ -41,9 +43,7 @@ const router = createBrowserRouter([
       { path: "", element: <Index /> },     // "/dashboard/login"
       { path: "table", element: <Table /> }, // "/dashboard/register"
       { path: "profile", element: <Profile /> },   // "/dashboard/profile"
-      { path: "menu", element: <Menu /> }, // outside layout
-      {path:"/coupon",element:<Coupon/>},
-      {path:"/scan",element:<Scan/>}
+      { path: "menu", element: <Menu /> } // outside layout
     ],
   },
   

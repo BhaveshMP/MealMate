@@ -18,11 +18,11 @@ export default function SideBar() {
           <SidebarItem href="#" icon={HiInbox} label="3">
             Inbox
           </SidebarItem>
-          <SidebarItem href="#" icon={HiUser}>
+          <SidebarItem href="/users" icon={HiUser}>
             Users
           </SidebarItem>
-          <SidebarItem href="#" icon={HiShoppingBag}>
-            Products
+          <SidebarItem href="/menu" icon={HiShoppingBag}>
+            Dishes
           </SidebarItem>
           <SidebarItem href="#" icon={HiArrowSmRight}>
             Sign In
