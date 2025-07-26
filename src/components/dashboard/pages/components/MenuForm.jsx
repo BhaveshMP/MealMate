@@ -1,10 +1,12 @@
 
 "use client";
 import { useState, useRef } from "react";
+import { MdClose } from "react-icons/md";
 import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-react";
-import { insertData } from "../components/backend/Backend";
-import ImageUploadForm from "../components/common/ImageUploadForm";
- const Menu = () =>{
+import { insertData } from "@/components/backend/Backend";
+import ImageUploadForm from "@/components/common/ImageUploadForm";
+ const MenuForm = ({openForm, setOpenForm}) =>{
+const [uploadTriggerCount, setUploadTriggerCount] = useState(0);
 
   const imageRef = useRef();
     const [item, setItem] = useState( {
@@ -27,28 +29,40 @@ import ImageUploadForm from "../components/common/ImageUploadForm";
         }));
     };
 
+
+    const handleSubmit = async (e) =>{
+        e.preventDefault();
+        setUploadTriggerCount((prev) => prev + 1);  
+        
+        insertData("menu", item);
+        console.log(item)
+    }
+
     const handleImageUpload = (url, fileName) => {
       setItem((prev) => ({ ...prev, imageUrl: url, imageName:fileName }));
     };
 
-    const handleSubmit = async (e) =>{
-        e.preventDefault();
-            if (imageRef.current) {
-            await imageRef.current.handleUpload(); // calls the child's function
-          }
-          insertData("menu", item);
-        console.log(item)
-    }
+
+
+
     return(
         <>
 
-<div className="flex items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900">
+      { openForm &&
+
+      
+          <div className="fixed inset-0 bg-transparent flex justify-center items-center z-50">
+        
+      <div className="rounded-lg w-2/5 bg-white dark:bg-gray-800 p-4 shadow-2xl shadow-black">
+      
       <form
         onSubmit={handleSubmit}
-        className="max-w-md w-full flex flex-col gap-4 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg"
+        className="flex flex-col gap-4 bg-white dark:bg-gray-800"
       >
-        <h2 className="text-2xl font-semibold text-center text-gray-800 dark:text-gray-100">Add Menu Item</h2>
-
+                    <div  className="flex flex-row justify-between">
+                    <h3    className="text-xl font-medium text-gray-900 dark:text-white">Add Admin</h3>
+                    <div><MdClose className="text-red-500" onClick={() => setOpenForm(false)} size={25}/></div>
+                    </div>
         {/* Name */}
         <div>
           <Label htmlFor="name" className="mb-2 block">Name</Label>
@@ -128,17 +142,19 @@ import ImageUploadForm from "../components/common/ImageUploadForm";
         </div>
 
         <div className="flex items-center gap-2">
-           <ImageUploadForm ref={imageRef} folder="avatars" onUpload={handleImageUpload} />
+           <ImageUploadForm folder="avatars" onUpload={handleImageUpload} />
         </div>
 
 
         {/* Submit */}
         <Button type="submit">Save Item</Button>
       </form>
+      
     </div>
-
+    </div>
+ }
         </>
     )
 }
 
-export default Menu
+export default MenuForm

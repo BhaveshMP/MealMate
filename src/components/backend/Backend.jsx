@@ -33,7 +33,9 @@ export const getData = async (tableName) => {
     const response = await axios.get(`${api}/rest/v1/${tableName}`, {
       headers: headers,
     });
+    console.log(response.data);
     return response.data;
+
   } catch (error) {
     console.error("Fetch failed:", error.response?.data || error.message);
     return [];
