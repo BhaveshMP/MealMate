@@ -1,28 +1,19 @@
+// components/common/ImageUploadForm.jsx
 
-import {useEffect, useState} from 'react'
-import {uploadImage} from "../backend/ImageHandling"
-const ImageUploadForm = ({ folder = "avatars", onUpload, triggerUpload }) => {
-  const [file, setFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState("");
-
+const ImageUploadForm = ({ onFileSelect }) => {
   return (
-    <div className="p-4 max-w-md mx-auto bg-white rounded shadow">
-
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-          className="mb-2"
-        />
-
-      {imageUrl && (
-        <div className="mt-4">
-          <img src={imageUrl} alt="Uploaded" className="max-w-full" />
-          <p className="text-sm break-all">{imageUrl}</p>
-        </div>
-      )}
+    <div className="w-full">
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) onFileSelect(file);
+        }}
+        className="mb-2"
+      />
     </div>
   );
 };
 
-export default ImageUploadForm
+export default ImageUploadForm;

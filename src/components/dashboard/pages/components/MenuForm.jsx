@@ -2,13 +2,13 @@
 "use client";
 import { useState, useRef } from "react";
 import { MdClose } from "react-icons/md";
+import {uploadImage} from "@/components/backend/ImageHandling"
 import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-react";
 import { insertData } from "@/components/backend/Backend";
 import ImageUploadForm from "@/components/common/ImageUploadForm";
  const MenuForm = ({openForm, setOpenForm}) =>{
-const [uploadTriggerCount, setUploadTriggerCount] = useState(0);
 
-  const imageRef = useRef();
+  const [selectedFile, setSelectedFile] = useState(null);
     const [item, setItem] = useState( {
         name : "",
         description: "",
@@ -30,20 +30,35 @@ const [uploadTriggerCount, setUploadTriggerCount] = useState(0);
     };
 
 
-    const handleSubmit = async (e) =>{
-        e.preventDefault();
-        setUploadTriggerCount((prev) => prev + 1);  
-        
-        insertData("menu", item);
-        console.log(item)
+ const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // 1. Upload image if selected
+    if (!selectedFile) {
+      alert("Please select an image.");
+      return;
     }
 
-    const handleImageUpload = (url, fileName) => {
-      setItem((prev) => ({ ...prev, imageUrl: url, imageName:fileName }));
+    const result = await uploadImage(selectedFile, "avatars");
+    if (!result.success) {
+      alert("Image upload failed!");
+      return;
+    }
+
+    // 2. Add image data to form data
+    const newItem = {
+      ...item,
+      imageUrl: result.url,
+      imageName: result.fileName,
     };
 
+    // 3. Insert into DB
+    await insertData("menu", newItem);
+    console.log("Inserted:", newItem);
+    setOpenForm(false);
+  };
 
-
+    
 
     return(
         <>
@@ -142,7 +157,7 @@ const [uploadTriggerCount, setUploadTriggerCount] = useState(0);
         </div>
 
         <div className="flex items-center gap-2">
-           <ImageUploadForm folder="avatars" onUpload={handleImageUpload} />
+           <ImageUploadForm onFileSelect={(file) => setSelectedFile(file)} />
         </div>
 
 
