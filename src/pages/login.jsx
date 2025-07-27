@@ -3,6 +3,10 @@ import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { getUserByEmailPassword } from "../components/backend/Backend";
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
+
+const admin = JSON.parse(import.meta.env.VITE_ADMIN);
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -13,25 +17,29 @@ const Login = () => {
     console.log("Email:", email);
     console.log("Password:", password);
 
- try {
-      const user = await getUserByEmailPassword(email, password);
-      if (user) {
-        // ✅ Store user in sessionStorage
-        sessionStorage.setItem("activeUser", JSON.stringify(user));
-        console.log("Login successful");
-        const u1 = sessionStorage.getItem("activeUser")
-        console.log("44444444444444",u1)
-        window.location.href = "/";
-        // navigate("/"); 
-      } else {
-        console.log("Invalid credentials");
+    if(admin.email== email && admin.password == password){
+      sessionStorage.setItem("activeUser", admin);
+      const u1 = sessionStorage.getItem("activeUser")
+      window.location.href = "/";
+    }else{
+      try {
+           const user = await getUserByEmailPassword(email, password);
+      if(user) {
+          // ✅ Store user in sessionStorage
+          sessionStorage.setItem("activeUser", JSON.stringify(user));
+          const u1 = sessionStorage.getItem("activeUser")
+          window.location.href = "/";
+          // navigate("/"); 
+        }else {
+          console.log("Invalid credentials");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
       }
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-    // 🔜 Call your Supabase auth or login API here
-  };
-
+      // 🔜 Call your Supabase auth or login API here
+    };
+  }
+    
   return (
 <div className="flex items-center justify-center min-h-screen ">
   <form

@@ -4,10 +4,10 @@ import { useState, useRef } from "react";
 import { MdClose } from "react-icons/md";
 import {uploadImage} from "@/components/backend/ImageHandling"
 import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-react";
-
 import { insertData } from "@/components/backend/Backend";
 import ImageUploadForm from "@/components/common/ImageUploadForm";
  const MenuForm = ({openForm, setOpenForm}) =>{
+
   const [selectedFile, setSelectedFile] = useState(null);
     const [item, setItem] = useState( {
         name : "",
@@ -45,7 +45,7 @@ import ImageUploadForm from "@/components/common/ImageUploadForm";
       return;
     }
 
-    // 2. Add image data to form datag
+    // 2. Add image data to form data
     const newItem = {
       ...item,
       imageUrl: result.url,
