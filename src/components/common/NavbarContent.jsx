@@ -3,7 +3,7 @@
 import { DarkThemeToggle } from "flowbite-react";
 import { Link } from "react-router-dom";
 import {useEffect, useState} from "react"
-
+import AdminDashboard from "@/pages/adminDashboard";
 import {
   Avatar,
   Dropdown,
@@ -56,6 +56,15 @@ useEffect(() => {
         <Link to="/menu" className="hover:text-gray-300 transition">Menu</Link>
         <Link to="/catering" className="hover:text-gray-300 transition">Catering</Link>
         <Link to="/contact" className="hover:text-gray-300 transition">Contact</Link>
+
+      {activeUser?.type === "ADMIN" ? (
+        <Link to="/adminDashboard" className="hover:text-gray-300 transition">Dashboard</Link>
+      ) : activeUser?.type === "EMPLOYEE" ? (
+        <Link to="/employeeDashboard" className="hover:text-gray-300 transition">Dashboard</Link>
+      ) : activeUser?.type === "CHEF" ? (
+        <Link to="/chefDashboard" className="hover:text-gray-300 transition">Dashboard</Link>
+      ) : null}
+
       <DarkThemeToggle className="relative bottom-1" />
       </nav>
       

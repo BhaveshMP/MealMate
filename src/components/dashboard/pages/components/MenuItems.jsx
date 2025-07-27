@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { Card, Badge } from "flowbite-react";
 import {getData} from "@/components/backend/Backend"
 
-export default function MenuItems() {
+export default function MenuItems({setUpdateInfo, setOpenModel}) {
     const [data, setData] = useState([]);
 
       useEffect(() => {
@@ -17,10 +17,16 @@ export default function MenuItems() {
     fetchData();
   }, []);
 
+    const updateData = (data) => {
+    setUpdateInfo(data);
+    setOpenModel(true);
+  }
+
   return (
    <div className="flex flex-wrap gap-3">
   {data.map((item, index) => (
     <div
+    onClick={() => updateData(item)}
       key={index}
       className="relative group rounded-lg overflow-hidden shadow-md h-56" // Fixed height
       style={{ flexGrow: 1, flexBasis: "auto" }}

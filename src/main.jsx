@@ -19,7 +19,9 @@ import Coupon from "./pages/coupon"
 import Scan from "./pages/scan"
 import HomeHeroSection from "./components/HomeHeroSection"; // Importing the HomeHeroSection component
 import Menu from "@/components/dashboard/pages/menu"
-import Dashboard from './pages/dashboard'
+import AdminDashboard from './pages/admindashboard'
+import EmployeeDashboard from "@/pages/employeeDashborad"
+import ChefDashboard from './pages/chefDashboard'
 import Index from "./components/dashboard/pages/index"
 import User from "./components/dashboard/pages/user"
 const router = createBrowserRouter([
@@ -32,13 +34,15 @@ const router = createBrowserRouter([
       { path: "register", element: <Register /> }, // "/register"
       { path: "profile", element: <Profile /> },   // "/profile"
       { path: "menu", element: <MenuList /> },
-      {path:"/coupon",element:<Coupon/>},
-      {path:"/scan",element:<Scan/>} // "/menulist"
+      {path:"coupon",element:<Coupon/>},
+      {path:"scan",element:<Scan/>} , 
+      {path:"employeeDashboard",element:<EmployeeDashboard/>} ,
+      {path:"chefDashboard",element:<ChefDashboard/>} ,
     ],
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />, // layout
+    path: "/adminDashboard",
+    element: <AdminDashboard />, // layout
     children: [
       { path: "", element: <Index /> },     // "/dashboard/login"
       { path: "table", element: <Table /> }, // "/dashboard/register"

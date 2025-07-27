@@ -1,15 +1,16 @@
 
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { MdClose } from "react-icons/md";
-import {uploadImage} from "@/components/backend/ImageHandling"
+import { handleImageUpload, handleImageUpadate } from "@/components/common/ImageUploadForm";
 import { Label, TextInput, Textarea, Checkbox, Select, Button } from "flowbite-react";
-import { insertData } from "@/components/backend/Backend";
+import { insertData, updateData } from "@/components/backend/Backend";
 import ImageUploadForm from "@/components/common/ImageUploadForm";
- const MenuForm = ({openForm, setOpenForm}) =>{
-
+ const MenuForm = ({openForm, setOpenForm, updateInfo}) =>{
   const [selectedFile, setSelectedFile] = useState(null);
-    const [item, setItem] = useState( {
+
+    const defaultData = {
+        id: undefined,
         name : "",
         description: "",
         price: 0,
@@ -18,45 +19,48 @@ import ImageUploadForm from "@/components/common/ImageUploadForm";
         specialDish: false,
         imageUrl: "", //
         imageName: "",
-    })
-
+    }
+    const [formData, setFormData] = useState(defaultData);
 
       const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setItem((prev) => ({
+        setFormData((prev) => ({
         ...prev,
         [name]: type === "checkbox" ? checked : value,
         }));
     };
 
 
- const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
 
-    // 1. Upload image if selected
-    if (!selectedFile) {
-      alert("Please select an image.");
-      return;
+  e.preventDefault();
+  
+  if(!formData.id){
+
+    try {
+      const newItem = await handleImageUpload(selectedFile, formData);
+      
+      await insertData("menu", newItem);
+      console.log("Inserted:", newItem);
+      setOpenForm(false);
+    } catch (error) {
+      alert(error.message);
     }
-
-    const result = await uploadImage(selectedFile, "avatars");
-    if (!result.success) {
-      alert("Image upload failed!");
-      return;
-    }
-
-    // 2. Add image data to form data
-    const newItem = {
-      ...item,
-      imageUrl: result.url,
-      imageName: result.fileName,
-    };
-
-    // 3. Insert into DB
-    await insertData("menu", newItem);
-    console.log("Inserted:", newItem);
+  }else{
+    const updatedFormData = await handleImageUpadate(selectedFile, formData);
+    await updateData("menu", formData.id, updatedFormData)
     setOpenForm(false);
-  };
+  }
+};
+
+
+    useEffect(() => {
+      if (updateInfo) {
+        setFormData(updateInfo);
+      } else {
+        setFormData(defaultData);
+      }
+    }, [updateInfo, openForm]);
 
     
 
@@ -79,13 +83,28 @@ import ImageUploadForm from "@/components/common/ImageUploadForm";
                     <div><MdClose className="text-red-500" onClick={() => setOpenForm(false)} size={25}/></div>
                     </div>
         {/* Name */}
+
+                  { formData.id &&
+            <div>
+              <Label htmlFor="name" className=" block">Id</Label>
+              <TextInput
+                id="id"
+                name="id"
+                placeholder="id"
+                type="number"
+                value={formData.id}
+                onChange={handleChange}
+                readOnly
+                />
+            </div>
+          }
         <div>
-          <Label htmlFor="name" className="mb-2 block">Name</Label>
+          <Label htmlFor="name" className=" block">Name</Label>
           <TextInput
             id="name"
             name="name"
             placeholder="Paneer Butter Masala"
-            value={item.name}
+            value={formData.name}
             onChange={handleChange}
             required
           />
@@ -93,13 +112,13 @@ import ImageUploadForm from "@/components/common/ImageUploadForm";
 
         {/* Description */}
         <div>
-          <Label htmlFor="description" className="mb-2 block">Description</Label>
+          <Label htmlFor="description" className=" block">Description</Label>
           <Textarea
             id="description"
             name="description"
             placeholder="Delicious cottage cheese in butter gravy..."
             rows={3}
-            value={item.description}
+            value={formData.description}
             onChange={handleChange}
             required
           />
@@ -107,24 +126,24 @@ import ImageUploadForm from "@/components/common/ImageUploadForm";
 
         {/* Price */}
         {/* <div>
-          <Label htmlFor="price" className="mb-2 block">Price (₹)</Label>
+          <Label htmlFor="price" className=" block">Price (₹)</Label>
           <TextInput
             id="price"
             name="price"
             type="number"
             placeholder="120"
-            value={item.price}
+            value={formData.price}
             onChange={handleChange}
             required
           />
         </div> */}
 
         {/* Available */}
-        <div className="flex items-center gap-2">
+        <div className="flex formDatas-center gap-2">
           <Checkbox
             id="available"
             name="available"
-            checked={item.available}
+            checked={formData.available}
             onChange={handleChange}
           />
           <Label htmlFor="available">Available</Label>
@@ -132,12 +151,12 @@ import ImageUploadForm from "@/components/common/ImageUploadForm";
 
         {/* Veg / Non-Veg */}
         <div>
-          <Label htmlFor="veg" className="mb-2 block">Type</Label>
+          <Label htmlFor="veg" className=" block">Type</Label>
           <Select
             id="veg"
             name="veg"
-            value={item.veg ? "true" : "false"}
-            onChange={(e) => setItem((prev) => ({ ...prev, veg: e.target.value === "true" }))}
+            value={formData.veg ? "true" : "false"}
+            onChange={(e) => setFormData((prev) => ({ ...prev, veg: e.target.value === "true" }))}
             required
           >
             <option value="true">Veg</option>
@@ -150,14 +169,16 @@ import ImageUploadForm from "@/components/common/ImageUploadForm";
           <Checkbox
             id="specialDish"
             name="specialDish"
-            checked={item.specialDish}
+            checked={formData.specialDish}
             onChange={handleChange}
           />
           <Label htmlFor="specialDish">Mark as Special Dish</Label>
         </div>
 
         <div className="flex items-center gap-2">
-           <ImageUploadForm onFileSelect={(file) => setSelectedFile(file)} />
+           
+
+      <ImageUploadForm value={formData.imageUrl} onFileSelect={setSelectedFile} />
         </div>
 
 

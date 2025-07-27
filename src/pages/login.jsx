@@ -12,13 +12,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
+
   const onSubmit = async (e) => {
     e.preventDefault(); // Prevent page reload
     console.log("Email:", email);
     console.log("Password:", password);
 
     if(admin.email== email && admin.password == password){
-      sessionStorage.setItem("activeUser", admin);
+      sessionStorage.setItem("activeUser", JSON.stringify(admin));
       const u1 = sessionStorage.getItem("activeUser")
       window.location.href = "/";
     }else{
