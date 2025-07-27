@@ -1,17 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Label, TextInput, Button, Modal, Select } from "flowbite-react";
 import { MdClose } from "react-icons/md";
-import {insertData} from "@/components/backend/Backend"
+import {insertData, updateData} from "@/components/backend/Backend"
 
-function UserForm({openForm, setOpenForm}) {
-  const [formData, setFormData] = useState({
-    id: 0,
-    name: "admin",
-    email: "admin@gmail.com",
+function UserForm({openForm, setOpenForm, updateInfo}) {
+  const defaultData = {
+    id: undefined,
+    name: "",
+    email: "",
     created_at: "",
-    password: "123",
-    type: "ADMIN",
-  });
+    password: "",
+    type: "",
+  }
+
+  const [formData, setFormData] = useState(defaultData);
+
+  // Fill form when editing
+  useEffect(() => {
+    if (updateInfo) {
+      setFormData(updateInfo);
+    } else {
+      setFormData(defaultData);
+    }
+  }, [updateInfo, openForm]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,7 +34,12 @@ function UserForm({openForm, setOpenForm}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    insertData("users", formData)
+    if(formData.id){
+      updateData("users", formData.id,formData)
+      console.log("UPSDA :" , formData)
+    }else{
+      insertData("users", formData)
+    }
     console.log("Form submitted:", formData);
   };
   return (
@@ -42,23 +58,27 @@ function UserForm({openForm, setOpenForm}) {
             <div><MdClose className="text-red-500" onClick={() => setOpenForm(false)} size={25}/></div>
             </div>
 
+          { formData.id &&
             <div>
               <Label htmlFor="id" value="ID" />
               <TextInput
                 id="id"
                 name="id"
+                placeholder="id"
                 type="number"
                 value={formData.id}
                 onChange={handleChange}
-                required
+                readOnly
                 />
             </div>
+          }
 
             <div>
               <Label htmlFor="name" value="Name" />
               <TextInput
                 id="name"
                 name="name"
+                placeholder="name"
                 type="text"
                 value={formData.name}
                 onChange={handleChange}
@@ -71,6 +91,7 @@ function UserForm({openForm, setOpenForm}) {
               <TextInput
                 id="email"
                 name="email"
+                placeholder="email"
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
@@ -83,6 +104,7 @@ function UserForm({openForm, setOpenForm}) {
               <TextInput
                 id="created_at"
                 name="created_at"
+                placeholder="created_at"
                 type="date"
                 value={formData.created_at}
                 onChange={handleChange}
@@ -94,6 +116,7 @@ function UserForm({openForm, setOpenForm}) {
               <TextInput
                 id="password"
                 name="password"
+                placeholder="password"
                 type="password"
                 value={formData.password}
                 onChange={handleChange}

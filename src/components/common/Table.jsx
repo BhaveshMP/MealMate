@@ -7,8 +7,10 @@ import {
   TableHeadCell,
   TableRow,
 } from "flowbite-react";
-import { getData } from "@/components/backend/Backend";
+import { getData, deleteData } from "@/components/backend/Backend";
 import { useEffect, useState } from "react";
+import { MdModeEditOutline } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 import { MdAddCircleOutline } from "react-icons/md";
 
 const demoData = [
@@ -26,7 +28,7 @@ const demoData = [
   },
 ];
 
-export default function Component({ tableName, title = "Table Name" }) {
+export default function Component({ tableName, title = "Table Name", setUpdateInfo, setOpenModel}) {
   const [tableData, setTableData] = useState(demoData);
   const [columns, setColumns] = useState([]);
   const [visibleColumns, setVisibleColumns] = useState([]);
@@ -53,6 +55,10 @@ export default function Component({ tableName, title = "Table Name" }) {
     }
   }, [tableData]);
 
+  const updateData = (data) => {
+    setUpdateInfo(data);
+    setOpenModel(true); 
+  }
   const toggleColumn = (col) => {
     setVisibleColumns((prev) =>
       prev.includes(col) ? prev.filter((c) => c !== col) : [...prev, col]
@@ -114,12 +120,13 @@ export default function Component({ tableName, title = "Table Name" }) {
                 ))}
 
                 <TableCell>
-                  <a
-                    href="#"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  <div
+                    
+                    className="text-2xl hover:underline flex flex-row"
                   >
-                    Edit
-                  </a>
+                   <MdModeEditOutline onClick={() => updateData(item)} /> 
+                    <MdDelete onClick={() => deleteData(tableName, item.id)} />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

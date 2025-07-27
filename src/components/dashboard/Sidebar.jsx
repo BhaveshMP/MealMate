@@ -9,16 +9,16 @@ export default function SideBar() {
     <Sidebar className="h-fit " aria-label="Default sidebar example" >
       <SidebarItems className="bg-gray-600/10 h-[90vh]">
         <SidebarItemGroup>
-          <SidebarItem href="/dashboard" icon={HiChartPie}>
+          <SidebarItem href="/adminDashboard" icon={HiChartPie}>
             Dashboard
           </SidebarItem>
-          <SidebarItem href="/dashboard/menu" icon={HiViewBoards} label="Pro" labelColor="dark">
+          <SidebarItem href="/adminDashboard/menu" icon={HiViewBoards} label="Pro" labelColor="dark">
             Menu
           </SidebarItem>
           <SidebarItem href="#" icon={HiInbox} label="3">
             Inbox
           </SidebarItem>
-          <SidebarItem href="/dashboard/user" icon={HiUser}>
+          <SidebarItem href="/adminDashboard/user" icon={HiUser}>
             Users
           </SidebarItem>
           <SidebarItem href="/menu" icon={HiShoppingBag}>

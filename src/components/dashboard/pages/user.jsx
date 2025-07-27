@@ -1,17 +1,23 @@
 import React from 'react'
 import Table from "@/components/common/Table"
-import { useState } from 'react'
+import { useState, useEffect} from 'react'
 import UserForm from './components/UserForm'
 import { Button } from "flowbite-react";
 export default function User() {
 
   const [openModal, setOpenModal] = useState(false);
+  const [updateInfo, setUpdateInfo] = useState();
+
+  const closeForm =() => {
+    setOpenModal(!openModal)
+    setUpdateInfo(null);
+  }
 
   return (
     <div>
-      <Button onClick={() => setOpenModal(!openModal)}>+</Button>
-        <UserForm openForm={openModal} setOpenForm={setOpenModal}/>
-        <Table title={"User"} tableName={"users"}/>
+      <Button onClick={() => closeForm()}>+</Button>
+        <UserForm openForm={openModal} setOpenForm={setOpenModal} updateInfo={updateInfo}/>
+        <Table title={"User"} tableName={"users"} setUpdateInfo={setUpdateInfo} setOpenModel={setOpenModal}/>
       
     
     </div>

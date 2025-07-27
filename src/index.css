@@ -21,3 +21,4 @@ body {
 .dark-mode-5 {
   @apply bg-white text-black dark:bg-[#222831] dark:text-white;
 }
+

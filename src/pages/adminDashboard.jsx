@@ -4,7 +4,7 @@ import NavbarContent from "../components/common/NavbarContent";
 import { Outlet, Link } from "react-router-dom"
 import DashboardBreadcrumb from "../components/dashboard/Breadcrumb"
 
-export default function Dashboard(){
+export default function AdminDashboard(){
 
 
     const [showSidebar, setShowSidebar] = useState(true);
