@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import beep from "../assets/beep.m4a";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { insertData } from "@/components/backend/Backend";
 
 const Scan = () => {
+
   const scannerRef = useRef(null);
   const readerRef = useRef(null);
   const [isScanned, setIsScanned] = useState(false);
@@ -15,41 +19,47 @@ const Scan = () => {
       qrbox: 250
     });
 
-    const onScanSuccess = (decodedText, decodedResult) => {
-      if (isScanned) return; // Prevent multiple scans
-      setIsScanned(true);
+    const onScanSuccess = async(decodedText) => {
+      if (isScanned) return;
 
-      // ✅ Play success sound
-      const audio = new Audio(beep);
-      audio.play();
+      try {
+        const data = JSON.parse(decodedText);
+        const date = new Date()
+        const today = date.toISOString().split("T")[0]; // "YYYY-MM-DD"
 
-      // ✅ Show success alert
-      alert(`✅ Scan successful!\nData: ${decodedText}`);
+        if (data.date !== today) {
+          toast.error("❌ QR is from a different date!");
+          return;
+        }
 
-      // ✅ Stop scanner
-      scannerRef.current.clear().catch((error) => {
-        console.error("Scanner cleanup error:", error);
-      });
+        setIsScanned(true);
+        new Audio(beep).play();
+        toast.success(`✅ QR Verified for ${data.employeeId} (${data.type.toUpperCase()})`);
+        console.log(data)
+        const fetch = await insertData("coupon",data)
+
+        scannerRef.current.clear().catch((error) => {
+          console.error("Scanner cleanup error:", error);
+        });
+      } catch (e) {
+        toast.error("❌ Invalid QR Code!",e);
+        console.log(e)
+      }
     };
 
-    const onScanFailure = (error) => {
-      // console.warn("Scan failure:", error); // optional
-    };
+    scannerRef.current.render(onScanSuccess, () => {});
 
-    // ✅ Start scanning
-    scannerRef.current.render(onScanSuccess, onScanFailure);
-
-    // ✅ Cleanup scanner on unmount
     return () => {
       scannerRef.current?.clear().catch((error) => {
-        console.error("Error clearing scanner on unmount:", error);
+        console.error("Scanner cleanup error:", error);
       });
     };
   }, [isScanned]);
 
   return (
     <div style={{ textAlign: "center", marginTop: "10rem" }}>
-      <h2>📷 Scan Your Meal Coupon</h2>
+      <ToastContainer />
+      <h2>📷 Scan Your Meal/Snacks Coupon</h2>
       <div id="reader" ref={readerRef} style={{ width: "300px", margin: "auto" }}></div>
     </div>
   );

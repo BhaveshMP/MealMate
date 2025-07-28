@@ -24,6 +24,7 @@ import EmployeeDashboard from "@/pages/employeeDashborad"
 import ChefDashboard from './pages/chefDashboard'
 import Index from "./components/dashboard/pages/index"
 import User from "./components/dashboard/pages/user"
+import CouponPage from './components/dashboard/pages/coupon'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
       { path: "profile", element: <Profile /> },   // "/dashboard/profile"
       { path: "user", element: <User /> },   // "/dashboard/profile"
       { path: "menu", element: <Menu /> },   // "/dashboard/profile"
+      { path: "coupon", element: <CouponPage /> },   // "/dashboard/profile"
     ],
   },
   { path: "/demo", element: <Demo /> }, // outside layout
